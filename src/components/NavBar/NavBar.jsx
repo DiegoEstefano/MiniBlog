@@ -6,17 +6,17 @@ import styles from "./NavBar.module.css"
 export default function NavBar() {
   return (
     <nav className={styles.navbar}>
-      <NavLink to="/">
+      <NavLink className={styles.brand} to="/">
           Mini <span>Blog</span>
       </NavLink>
-      <ul>
+      <ul className={styles.links_list}>
         <li>
-          <NavLink to="/">
+          <NavLink to="/" className={({isActive}) => (isActive ? styles.active : '')}>
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink to="/about">
+          <NavLink to="/about" className={({isActive}) => (isActive ? styles.active : '')}>
             About
           </NavLink>
         </li>

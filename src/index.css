@@ -2,4 +2,32 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    background-color: #f6fcff;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+a, nav.button,
+nav span:hover {
+    text-decoration: none;
+    background-color: none;
+    border: none;
+    color: 000;
+    transition: .4s;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+a:hover,
+nav span:hover,
+nav.button:hover {
+    color: #bbb;
 }
