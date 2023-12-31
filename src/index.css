@@ -47,7 +47,7 @@ form {
 label {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1px;
+    margin-bottom: 1em;
 
 }
 
@@ -120,7 +120,7 @@ button[disable] {
     background-color: #aaa;
 }
 
-.container .error {
+ .error {
     color: #721c24 ;
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
@@ -130,4 +130,5 @@ button[disable] {
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    margin-top: 1em;
 }
