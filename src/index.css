@@ -1,3 +1,20 @@
+.disableBtn {
+    background-color: #aaa;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    width: 120px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -116,11 +133,8 @@ input, textarea {
     background-color: #dc3545;
 }
 
-button[disable] {
-    background-color: #aaa;
-}
 
- .error {
+.error {
     color: #721c24 ;
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
