@@ -6,7 +6,7 @@ import {
     signInWithEmailAndPassword,
     updateProfile,
     signOut,
-  } from "firebase/auth";
+} from "firebase/auth";
 
 import { useState, useEffect } from 'react'
 
@@ -26,9 +26,10 @@ export const useAuthentication = () => {
         }
     }
 
+    // ----------------------Register-------------------------- 
     const createUser = async (data) => {
         checkIfIsCanceled();
-        
+
         setLoading(true)
         setError(null)
 
@@ -58,7 +59,7 @@ export const useAuthentication = () => {
                 systemErrorMessage = "A senha precisa incluir pelo menos 6 caracteres"
             } else if (error.message.includes("EMAIL_EXISTS")) {
                 systemErrorMessage = "E-mail já cadastrado"
-            } else if (error.message.includes("INVALID")){
+            } else if (error.message.includes("INVALID")) {
                 systemErrorMessage = "O e-mail é invalido, tente outro endereço de e-mail"
             } else {
                 systemErrorMessage = "Ocorreu um erro, tente mais tarde."
@@ -67,6 +68,14 @@ export const useAuthentication = () => {
             setError(systemErrorMessage)
         }
     }
+    // ----------------------Log Out-------------------------- 
+
+    const LogOut = () => {
+        checkIfIsCanceled();
+
+        signOut(auth)
+    }
+
 
     useEffect(() => {
         setCanceled(true)
@@ -76,7 +85,8 @@ export const useAuthentication = () => {
         auth,
         createUser,
         error,
-        loading
+        loading,
+        LogOut
     };
 
 }
