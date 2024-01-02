@@ -51,7 +51,7 @@ export default function NavBar() {
             About
           </NavLink>
         </li>
-        {!user && (
+        {user && (
           <li>
             <button onClick={LogOut}>
               Sair

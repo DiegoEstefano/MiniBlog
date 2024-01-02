@@ -10,7 +10,7 @@ import {
 
 import { useState, useEffect } from 'react'
 
-export const useAuthentication = () => {
+export const  useAuthentication = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(null)
 
@@ -34,7 +34,6 @@ export const useAuthentication = () => {
         setError(null)
 
         try {
-
             const { user } = await createUserWithEmailAndPassword(
                 auth,
                 data.email,
@@ -46,7 +45,6 @@ export const useAuthentication = () => {
             })
 
             setLoading(false)
-
             return user;
 
         } catch (error) {
@@ -72,8 +70,34 @@ export const useAuthentication = () => {
 
     const LogOut = () => {
         checkIfIsCanceled();
-
         signOut(auth)
+    }
+
+
+    // -------------------------Login-----------------------------
+
+    const Login = async (data) => {
+        checkIfIsCanceled();
+
+        setLoading(true);
+        setError(false);
+
+        try {
+            await signInWithEmailAndPassword(auth, data.email, data.password)
+            setLoading(false)
+        } catch (error) {
+            let systemErrorMessage;
+
+            if (error.message.includes("user-not-found")) {
+                systemErrorMessage = "Usuário não encontrado"
+            } else if (error.message.includes("wrong-password")) {
+                systemErrorMessage = "Senha incorreta"
+            } else {
+                systemErrorMessage = "Ocorreu um erro por favor tente mais tarde"
+            }
+            setError(systemErrorMessage)
+            setLoading(false)
+        }
     }
 
 
@@ -86,7 +110,8 @@ export const useAuthentication = () => {
         createUser,
         error,
         loading,
-        LogOut
+        LogOut,
+        Login
     };
 
 }
