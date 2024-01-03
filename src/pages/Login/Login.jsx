@@ -1,47 +1,47 @@
-//Css
-import styles from "./Login.module.css"
 
+import React, { useState, useEffect } from "react";
+import styles from "./Login.module.css";
 import { useAuthentication } from "../../hooks/useAuthentication";
-
-import { useState, useEffect } from "react"
+import UserLogin from "../../hooks/UserLogin";
 
 export default function Login() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { Login, error: authError, loading } = useAuthentication();
+  const { login, error: loginError, loading } = UserLogin();
+  const { error: authError } = useAuthentication();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    setError("")
-
-    const user = {
-      email,
-      password
+    try {
+      await login(email, password);
+      // Lógica adicional após o login, se necessário
+    } catch (error) {
+      setError(error.message || "Ocorreu um erro durante o login.");
     }
-
-    const res = await Login(user)
-    console.log(res)
   };
 
   useEffect(() => {
     if (authError) {
-      setError(authError)
+      setError(authError);
     }
-  }, [authError])
+  }, [authError]);
 
-
+  useEffect(() => {
+    if (loginError) {
+      setError(loginError);
+    }
+  }, [loginError]);
 
   return (
     <div className={styles.login}>
       <h1>Entrar</h1>
       <p>Faça o login para poder utilizar o sistema.</p>
       <form onSubmit={handleSubmit}>
-
-        <label >
+        <label>
           <span>E-mail:</span>
           <input
             type="email"
@@ -52,7 +52,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        <label >
+        <label>
           <span>Senha</span>
           <input
             type="password"
@@ -72,5 +72,5 @@ export default function Login() {
         {error && <p className="error">{error}</p>}
       </form>
     </div>
-  )
-} 
+  );
+}
