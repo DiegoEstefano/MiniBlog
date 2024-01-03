@@ -10,7 +10,7 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const { login, error: loginError, loading } = UserLogin();
-  const { error: authError } = useAuthentication();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,11 +24,6 @@ export default function Login() {
     }
   };
 
-  useEffect(() => {
-    if (authError) {
-      setError(authError);
-    }
-  }, [authError]);
 
   useEffect(() => {
     if (loginError) {

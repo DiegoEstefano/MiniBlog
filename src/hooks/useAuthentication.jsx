@@ -48,15 +48,14 @@ export const  useAuthentication = () => {
 
         } catch (error) {
             console.log(error.message)
-            console.log(typeof error.message)
 
             let systemErrorMessage;
 
             if (error.message.includes("Password")) {
                 systemErrorMessage = "A senha precisa incluir pelo menos 6 caracteres"
-            } else if (error.message.includes("EMAIL_EXISTS")) {
+            } else if (error.message.includes("auth/email-already-in-use")) {
                 systemErrorMessage = "E-mail já cadastrado"
-            } else if (error.message.includes("INVALID")) {
+            } else if (error.message.includes("auth/invalid-email")) {
                 systemErrorMessage = "O e-mail é invalido, tente outro endereço de e-mail"
             } else {
                 systemErrorMessage = "Ocorreu um erro, tente mais tarde."
