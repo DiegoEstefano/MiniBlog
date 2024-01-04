@@ -2,6 +2,8 @@ import styles from './Createpost.module.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthValue } from "../../context/AuthContext"
+import { useInsertDocument } from '../../hooks/useInsertDocument'
+import 
 
 export default function Createpost() {
     const [title, setTitle] = useState();
@@ -10,8 +12,25 @@ export default function Createpost() {
     const [tags, setTags] = useState();
     const [formError, setFormError] = useState();
 
+    const {useInsertDocument, reponse} = useInsertDocument();
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        setFormError("")
+
+        // Validade image url
+
+        // Create array of tags
+
+        // check all the values
+
+        useInsertDocument({
+            title,
+            image,
+            body, 
+            tags,
+            uid:
+        })
     }
 
     return (
