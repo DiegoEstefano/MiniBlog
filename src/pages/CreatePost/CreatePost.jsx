@@ -3,34 +3,51 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthValue } from "../../context/AuthContext"
 import { useInsertDocument } from '../../hooks/useInsertDocument'
-import 
 
-export default function Createpost() {
-    const [title, setTitle] = useState();
-    const [image, setImage] = useState();
-    const [body, setBody] = useState();
-    const [tags, setTags] = useState();
-    const [formError, setFormError] = useState();
 
-    const {useInsertDocument, reponse} = useInsertDocument();
+const CreatePost = () => {
+    const [title, setTitle] = useState("");
+    const [image, setImage] = useState("");
+    const [body, setBody] = useState("");
+    const [tags, setTags] = useState([]);
+    const [formError, setFormError] = useState("");
+    const { user } = useAuthValue();
+
+    const { insertDocument, response } = useInsertDocument("posts");
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormError("")
 
         // Validade image url
+        try {
+            new URL(image)
+        } catch (error) {
+            setFormError("A imagem precisa ser uma URL.")
+        }
 
         // Create array of tags
+        const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase())
 
-        // check all the values
+        // check all the values 
+        if (!title || !image || !tags || !body) {
+            setFormError("Por favor, preencha todos os campos!")
+        }
 
-        useInsertDocument({
+        if (formError) return;
+
+        insertDocument({
             title,
             image,
-            body, 
-            tags,
-            uid:
+            body,
+            tagsArray,
+            uid: user.uid,
+            createdBy: user.displayName
         })
+
+        //redirect to home page
+        navigate("/")
     }
 
     return (
@@ -50,12 +67,13 @@ export default function Createpost() {
                 </label>
                 <label>
                     <span>URL da imagem</span>
-                    <input type="image"
-                        name='Insira uma imagem para o seu post'
+                    <input
+                        type="text"
+                        name="image"
                         required
-                        placeholder='Pense em um bom título...'
+                        placeholder="Insira uma imagem que representa seu post"
                         onChange={(e) => setImage(e.target.value)}
-                        value={title}
+                        value={image}
                     />
                 </label>
                 <label>
@@ -78,15 +96,17 @@ export default function Createpost() {
                         value={tags}
                     />
                 </label>
-                <button className="btn">Entrar</button>
-               {/*  {!loading && <button className="btn">Entrar</button>}
+
+                {!response.loading && <button className="btn">Criar post</button>}
+                {response.loading && (
                     <button className="btn" disabled>
                         Aguarde...
                     </button>
-                {loading && (
                 )}
-                {error && <p className="error">{error}</p>} */}
+                {response.error && <p className="error">{response.error}</p>}
+                {formError && <p className="error">{formError}</p>}
             </form>
         </div>
     )
 }
+export default CreatePost;
