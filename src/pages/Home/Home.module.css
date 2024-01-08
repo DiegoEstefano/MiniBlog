@@ -12,7 +12,10 @@
     justify-content: center;
     margin-bottom: 2em;
   }
-  
+  .home img {
+    max-width: 500px;
+    height: 500px;
+  }
   .search_form input {
     margin-right: 10px;
     width: 50%;
@@ -29,3 +32,4 @@
   .noposts a {
     padding: 10px 25px;
   }
+

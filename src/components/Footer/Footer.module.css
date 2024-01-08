@@ -1,9 +1,15 @@
 .container {
-    height: 250px;
+    width: 100%;
+    height: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     background-color: #edf3f6;
+    position: fixed;
+    bottom: 0;
 }
 
+.container h3{
+    margin-bottom: 0.1px;
+}

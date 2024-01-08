@@ -36,7 +36,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className={styles.corpo}>
       <AuthProvider value={{ user }}>
         <BrowserRouter>
           <NavBar />
